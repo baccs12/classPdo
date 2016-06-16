@@ -1,0 +1,19 @@
+.wrapper {
+    width: 960px;
+    margin: 0 auto;
+}
+
+span {
+    margin-left: 10px;
+    padding: 20px;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input[type="submit"]{
+    margin-bottom: 50px;
+}
