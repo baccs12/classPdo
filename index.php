@@ -16,6 +16,9 @@
     <br>
     <input type='submit' name='submit' value='submit'>
     </form>
+
+
+
 </div>
 </body>
 </html>
@@ -61,48 +64,30 @@ class ViewInfo {
 
     }
     public function view ($link) {
-         $sql= "SELECT * FROM ToDo";
+            $sql= "SELECT * FROM ToDo";
                 $stmt = $link->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->fetchAll();
                 foreach($result as $row)
                 {
-                    echo "<div class='wrapper'>
-                    <form action='delete.php' method='POST' class='form-display'>";
-                    echo "<input type='text' name='id' value='{$row['id']}'>";
-                    echo "<input type='text' name='firstname' value='{$row['title']}'>";
-                    echo "<input type='text' name='lastname' value='{$row['message']}'>";
-                    echo "<span><a href='update.php'>Update</a></span>";
-                    echo "<span><a href='delete.php'>Delete</a></span>";
+                    echo "<div class='wrapper'>";
+                    echo "<input type='text' name='id' value='$row[id]'>";
+                    echo "<input type='text' name='firstname' value='$row[title]'>";
+                    echo "<input type='text' name='lastname' value='$row[message]'>";
+                    echo "<span><a href='index.php'>Update</a></span>";
+                    echo "<span><a href='delete.php?id=$row[id]'>Delete</a></span>";
                     echo "</form></div>";
                 }
 
     }
+
+
 }
-
-
-class DeleteInfo {
-    public function __construct($link) {
-
-    }
-
-    public function deleterow ($link) {
-            $sql = "DELETE FROM ToDo WHERE id =  :id";
-            $stmt = $link->prepare($sql);
-            $stmt->bindParam(':id', $_POST['id'], PDO::PARAM_INT);
-            $stmt->execute();
-            echo "<script type= 'text/javascript'>alert('Successfully Deleted.');</script>";
-            }
-
-    }
-
-
 
 $info = new AddInfo($link);
 $info->addsubmit($title, $message);
 $view = new ViewInfo();
 $view->view($link);
-$del = new DeleteInfo($link);
-$del->deleterow();
+
 
 ?>
